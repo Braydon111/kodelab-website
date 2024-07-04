@@ -36,6 +36,8 @@ export default async function page() {
   );
 }
 
+export const revalidate = 30; // revalidate at most every 30 seconds
+
 async function getData() {
   const query = `
   *[_type == 'post'] | order(_createdAt desc)
