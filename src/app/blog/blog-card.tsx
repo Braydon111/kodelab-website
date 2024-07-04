@@ -3,19 +3,21 @@ import { cn } from "@/utils/cn";
 import Image from "next/image";
 import { BlogPost } from "./page";
 import { parseISO, format } from "date-fns";
+import Link from "next/link";
 
 export function BlogCard({ content }: { content: BlogPost }) {
   const updatedAtDate = content._updatedAt && parseISO(content._updatedAt);
   const publishedAtDate = content.publishedAt && parseISO(content.publishedAt);
 
   const formattedUpdatedAtDate =
-    updatedAtDate && format(updatedAtDate, "dd/MM/yyyy");
+    updatedAtDate && format(updatedAtDate, "MMM dd, yyyy");
   const formattedPublishedAtDate =
-    publishedAtDate && format(publishedAtDate, "dd/MM/yyyy");
+    publishedAtDate && format(publishedAtDate, "MMM dd, yyyy");
 
   return (
-    <div className="max-w-[calc((100%-72px)/3)] w-full group/card rounded-xl bg-background">
-      <div
+    <div className="max-w-[calc((100%-96px)/3)] w-full group/card rounded-xl bg-background">
+      <Link
+        href={`/blog/${content.slug}`}
         className={cn(
           " cursor-pointer overflow-hidden relative card h-[410px] rounded-xl shadow-xl mx-auto backgroundImage flex flex-col justify-between p-4 bg-contain"
         )}
@@ -53,14 +55,10 @@ export function BlogCard({ content }: { content: BlogPost }) {
             {content.title}
           </h1>
           <p className="font-normal text-sm text-foreground group-hover/card:text-gray-50 relative z-10 my-4 line-clamp-3">
-            Card with Author avatar, complete name and time to read - most
-            suitable for blogs. Card with Author avatar, complete name and time
-            to read - most suitable for blogs. Card with Author avatar, complete
-            name and time to read - most suitable for blogs. Card with Author
-            avatar, complete name and time to read - most suitable for blogs.
+            {content.shortDescription}
           </p>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import PageWrapper from "@/components/layout/PageWrapper";
 import { client } from "../lib/sanity";
 import { BlogCard } from "./blog-card";
 
@@ -6,7 +7,8 @@ export interface BlogPost {
   mainImageUrl: string | null;
   categories: any[];
   _createdAt: string | null;
-  body: any;
+  shortDescription: string | null;
+  body?: any;
   _id: string;
   author: {
     name: string | null;
@@ -20,17 +22,17 @@ export interface BlogPost {
 export default async function page() {
   const data: BlogPost[] = await getData();
   return (
-    <section className="relative max-w-[1400px] w-full px-4 md:px-8 mx-auto">
-      <h1 className="text-4xl font-semibold lg:text-5xl pt-5">Blog</h1>
+    <PageWrapper>
+      <h1 className="text-4xl font-semibold lg:text-5xl">Blog</h1>
       <p className="leading-7 text-muted-foregroung mt-2">
         Insights from the Dev Team
       </p>
-      <div className="flex my-10 gap-6">
+      <div className="flex my-10 gap-8">
         {data.map((post) => (
           <BlogCard key={post._id} content={post} />
         ))}
       </div>
-    </section>
+    </PageWrapper>
   );
 }
 
@@ -40,6 +42,7 @@ async function getData() {
   {
     _id,
     title,
+    shortDescription,
     "slug": slug.current,
     author->{name, "image":image.asset->url},
     "mainImageUrl": mainImage.asset->url,
@@ -47,7 +50,6 @@ async function getData() {
     _createdAt,
     _updatedAt,
     publishedAt,
-    body
   }`;
 
   const data = await client.fetch(query);

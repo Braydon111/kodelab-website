@@ -1,57 +1,65 @@
-import { defineType, defineField, defineArrayMember } from 'sanity'
+import {defineType, defineField, defineArrayMember} from 'sanity'
 
 export const post = defineType({
-  name: "post",
-  title: "Post",
-  type: "document",
+  name: 'post',
+  title: 'Post',
+  type: 'document',
   fields: [
     defineField({
-      name: "title",
-      title: "Title",
-      type: "string",
+      name: 'title',
+      title: 'Title',
+      description: 'Up to 80 characters allowed',
+      type: 'string',
+      validation: (rule) => rule.max(80).error('Up to 80 characters allowed'),
     }),
     defineField({
-      name: "slug",
-      title: "Slug",
-      type: "slug",
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
       options: {
-        source: "title",
+        source: 'title',
         maxLength: 96,
       },
     }),
     defineField({
-      name: "author",
-      title: "Author",
-      type: "reference",
-      to: { type: "author" },
+      name: 'author',
+      title: 'Author',
+      type: 'reference',
+      to: {type: 'author'},
     }),
     defineField({
-      name: "mainImage",
-      title: "Main image",
-      type: "image",
-      options: { hotspot: true },
+      name: 'mainImage',
+      title: 'Main image',
+      type: 'image',
+      options: {hotspot: true},
     }),
     defineField({
-      name: "categories",
-      title: "Categories",
-      type: "array",
+      name: 'categories',
+      title: 'Categories',
+      type: 'array',
       of: [
         defineArrayMember({
-          type: "reference",
-          to: { type: "category" },
+          type: 'reference',
+          to: {type: 'category'},
         }),
       ],
     }),
     defineField({
-      name: "publishedAt",
-      title: "Published at",
-      type: "datetime",
+      name: 'publishedAt',
+      title: 'Published at',
+      type: 'datetime',
     }),
     defineField({
-      name: "body",
-      title: "Body",
-      type: "blockContent",
+      name: 'shortDescription',
+      title: 'Short Description',
+      description: 'Up to 200 characters allowed',
+      type: 'text',
+      validation: (rule) => rule.max(200).error('Up to 200 characters allowed'),
+    }),
+    defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent',
     }),
   ],
-});
-
+})
