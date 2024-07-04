@@ -14,10 +14,10 @@ export function BlogCard({ content }: { content: BlogPost }) {
     publishedAtDate && format(publishedAtDate, "dd/MM/yyyy");
 
   return (
-    <div className="max-w-[calc((100%-72px)/3)] w-full group/card">
+    <div className="max-w-[calc((100%-72px)/3)] w-full group/card rounded-xl bg-background">
       <div
         className={cn(
-          " cursor-pointer overflow-hidden relative card h-80 rounded-md shadow-xl mx-auto backgroundImage flex flex-col justify-between p-4 bg-contain"
+          " cursor-pointer overflow-hidden relative card h-[410px] rounded-xl shadow-xl mx-auto backgroundImage flex flex-col justify-between p-4 bg-contain"
         )}
       >
         <div
@@ -48,17 +48,17 @@ export function BlogCard({ content }: { content: BlogPost }) {
             </p>
           </div>
         </div>
-        <div className="text content h-[96px]">
+        <div className="text content h-[180px]">
           <h1 className="font-bold text-xl md:text-2xl text-foreground group-hover/card:text-gray-50 relative z-10 line-clamp-3">
             {content.title}
           </h1>
-          {/* <p className="font-normal text-sm text-gray-50 relative z-10 my-4 line-clamp-3">
+          <p className="font-normal text-sm text-foreground group-hover/card:text-gray-50 relative z-10 my-4 line-clamp-3">
             Card with Author avatar, complete name and time to read - most
             suitable for blogs. Card with Author avatar, complete name and time
             to read - most suitable for blogs. Card with Author avatar, complete
             name and time to read - most suitable for blogs. Card with Author
             avatar, complete name and time to read - most suitable for blogs.
-          </p> */}
+          </p>
         </div>
       </div>
     </div>
