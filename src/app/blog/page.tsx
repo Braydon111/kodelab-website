@@ -5,7 +5,7 @@ import { BlogCard } from "./blog-card";
 export interface BlogPost {
   slug: string | null;
   mainImageUrl: string | null;
-  categories: any[];
+  categories: { title?: string; shortDescription?: string }[];
   _createdAt: string | null;
   shortDescription: string | null;
   body?: any;
@@ -23,8 +23,8 @@ export default async function page() {
   const data: BlogPost[] = await getData();
   return (
     <PageWrapper>
-      <h1 className="text-4xl font-semibold lg:text-5xl">Blog</h1>
-      <p className="leading-7 text-muted-foregroung mt-2">
+      <h1 className="text-4xl font-bold lg:text-5xl">Blog</h1>
+      <p className="leading-7 text-muted-foregroung mt-4 text-lg">
         Insights from the Dev Team
       </p>
       <div className="flex my-10 gap-8">

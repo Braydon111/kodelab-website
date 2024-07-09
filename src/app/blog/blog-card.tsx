@@ -1,9 +1,9 @@
 "use client";
 import { cn } from "@/utils/cn";
+import { format, parseISO } from "date-fns";
 import Image from "next/image";
-import { BlogPost } from "./page";
-import { parseISO, format } from "date-fns";
 import Link from "next/link";
+import { BlogPost } from "./page";
 
 export function BlogCard({ content }: { content: BlogPost }) {
   const updatedAtDate = content._updatedAt && parseISO(content._updatedAt);
@@ -19,11 +19,11 @@ export function BlogCard({ content }: { content: BlogPost }) {
       <Link
         href={`/blog/${content.slug}`}
         className={cn(
-          " cursor-pointer overflow-hidden relative card h-[410px] rounded-xl shadow-xl mx-auto backgroundImage flex flex-col justify-between p-4 bg-contain"
+          " cursor-pointer overflow-hidden relative card h-[460px] rounded-xl shadow-xl mx-auto backgroundImage flex flex-col justify-between p-4 bg-contain"
         )}
       >
         <div
-          className="absolute top-0 left-0 w-full h-[200px]"
+          className="absolute top-0 left-0 w-full h-[210px]"
           style={{
             background: `url(${content.mainImageUrl})`,
             backgroundColor: "#000",
@@ -42,21 +42,36 @@ export function BlogCard({ content }: { content: BlogPost }) {
             className="h-10 w-10 rounded-full border-2 object-cover"
           />
           <div className="flex flex-col">
-            <p className="font-normal text-base text-background relative z-10">
+            <p className="font-normal text-base text-background dark:text-foreground relative z-10">
               {content.author.name}
             </p>
-            <p className="text-sm text-background/70">
+            <p className="text-sm text-background/70 dark:text-foreground/70">
               {formattedPublishedAtDate ?? formattedUpdatedAtDate}
             </p>
           </div>
         </div>
-        <div className="text content h-[180px]">
+        <div className="text content h-[228px]">
           <h1 className="font-bold text-xl md:text-2xl text-foreground group-hover/card:text-gray-50 relative z-10 line-clamp-3">
             {content.title}
           </h1>
-          <p className="font-normal text-sm text-foreground group-hover/card:text-gray-50 relative z-10 my-4 line-clamp-3">
+          <p className="font-normal  text-lg leading-6 text-foreground group-hover/card:text-gray-50 relative z-10 my-4 line-clamp-3">
             {content.shortDescription}
           </p>
+        </div>
+        <div className="absolute bottom-0 right-4 gap-[10px] z-10 py-4 w-[calc(100%-32px)] flex justify-end line-clamp-1">
+          {content.categories.map(
+            (category, index) =>
+              index < 2 && (
+                <div
+                  className="rounded-full border-[1px] p-3 py-1 whitespace-nowrap"
+                  key={category.title}
+                >
+                  <p className="text-sm text-primary group-hover/card:text-gray-50">
+                    {category.title}
+                  </p>
+                </div>
+              )
+          )}
         </div>
       </Link>
     </div>

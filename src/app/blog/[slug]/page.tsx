@@ -51,7 +51,7 @@ export default async function BlogArticle({
           quality={100}
         />
       </div>
-      <div className="mt-8 prose prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary prose-h1:mt-10 prose-h2:mt-8 prose-h3:mt-6 prose-h3:mt-4 w-full max-w-full">
+      <div className="mt-8 prose prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary prose-h1:mt-10 prose-h2:mt-8 prose-h3:mt-4 w-full max-w-full">
         <PortableText value={data.body} />
       </div>
     </PageWrapper>
