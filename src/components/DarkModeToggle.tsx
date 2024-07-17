@@ -16,7 +16,7 @@ export function DarkModeToggle() {
 
   return (
     <Button
-      className="px-0 py-0 rounded-full h-[31px] w-[31px] group hover:bg-primary -mr-2"
+      className="px-0 py-0 rounded-full h-[31px] w-[31px] group hover:bg-primary -mr-1"
       onClick={() => setIsDark(!isDark)}
       variant="ghost"
       size="icon"
