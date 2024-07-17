@@ -7,8 +7,8 @@ export default defineConfig({
   name: 'default',
   title: 'kodelab-website',
 
-  projectId: '7f35eerd',
-  dataset: 'production',
+  projectId: process.env.SANITY_PROJECT_ID ?? '',
+  dataset: process.env.SANITY_DATASET ?? '',
 
   plugins: [structureTool(), visionTool()],
 

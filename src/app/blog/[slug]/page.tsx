@@ -4,6 +4,8 @@ import Image from "next/image";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { format, parseISO } from "date-fns";
 import { PortableText } from "next-sanity";
+import { urlForImage } from "@/lib/sanityImage";
+import BlogBreadcrumbs from "./blog-breadcrumbs";
 
 export default async function BlogArticle({
   params,
@@ -23,22 +25,25 @@ export default async function BlogArticle({
     <PageWrapper>
       <div className="w-full flex flex-col gap-6 justify-center">
         <h1 className="text-4xl font-semibold lg:text-5xl">{data.title}</h1>
-        <div className="flex flex-row items-center space-x-4 z-10 mt-2">
-          <Image
-            height="100"
-            width="100"
-            alt="Avatar"
-            src={data.author.image ?? ""}
-            className="h-11 w-11 rounded-full border-2 object-cover"
-          />
-          <div className="flex flex-col mt-[-2px]">
-            <p className="text-lg font-bold text-foreground/70 relative z-10">
-              {data.author.name}
-            </p>
-            <p className="text-sm font-medium text-foreground/50 mt-[-2px]">
-              {formattedPublishedAtDate ?? formattedUpdatedAtDate}
-            </p>
+        <div className="flex w-full justify-between items-center gap-6 flex-wrap">
+          <div className="flex flex-row items-center space-x-4 z-10 mt-2">
+            <Image
+              height="100"
+              width="100"
+              alt="Avatar"
+              src={data.author.image ?? ""}
+              className="h-11 w-11 rounded-full border-2 object-cover"
+            />
+            <div className="flex flex-col mt-[-2px]">
+              <p className="text-lg font-bold text-foreground/70 relative z-10">
+                {data.author.name}
+              </p>
+              <p className="text-sm font-medium text-foreground/50 mt-[-2px]">
+                {formattedPublishedAtDate ?? formattedUpdatedAtDate}
+              </p>
+            </div>
           </div>
+          <BlogBreadcrumbs />
         </div>
       </div>
       <div className="flex my-10 gap-6 w-full relative">
@@ -52,7 +57,7 @@ export default async function BlogArticle({
         />
       </div>
       <div className="mt-8 prose prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary prose-h1:mt-10 prose-h2:mt-8 prose-h3:mt-4 w-full max-w-full">
-        <PortableText value={data.body} />
+        <PortableText value={data.body} components={myPortableTextComponents} />
       </div>
     </PageWrapper>
   );
@@ -80,3 +85,37 @@ async function getData(slug: string) {
 
   return data;
 }
+
+const myPortableTextComponents = {
+  types: {
+    image: ({ value }: any) => (
+      <div className="flex my-10 gap-6 w-full relative bg-foreground/5">
+        <Image
+          height="800"
+          width="1920"
+          src={urlForImage(value).url()}
+          alt={"post_image"}
+          className="h-[500px] rounded-xl w-full object-contain object-top my-0"
+          quality={100}
+        />
+      </div>
+    ),
+    // callToAction: ({ value, isInline }) =>
+    //   isInline ? (
+    //     <a href={value.url}>{value.text}</a>
+    //   ) : (
+    //     <div className="callToAction">{value.text}</div>
+    //   ),
+  },
+
+  // marks: {
+  //   link: ({children, value}) => {
+  //     const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
+  //     return (
+  //       <a href={value.href} rel={rel}>
+  //         {children}
+  //       </a>
+  //     )
+  //   },
+  // },
+};
