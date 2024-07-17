@@ -25,6 +25,7 @@ export default function BlogBreadcrumbs({ tabs }: { tabs?: string[] }) {
             <>
               <BreadcrumbItem>
                 <Link
+                  className="transition-colors hover:text-foreground"
                   href={
                     isLastTab
                       ? ""
